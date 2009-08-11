@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Base Template</title>
+<link rel="stylesheet" href="/css/reset.css" />
+<link rel="stylesheet" href="/css/text.css" />
+<link rel="stylesheet" href="/css/960.css" />
+<link rel="stylesheet" href="/css/main.css" />
+<style>
+
+</style>
+
+</head>
+<body>
+	<div class="container_12">
+		<div class="grid_12">
+			<div class="grid_3">
+			<img src="/img/logo_lg.png" alt="mumbojumbo" />
+			</div>
+			<!-- end .grid_3 -->
+			<div class="grid_6">
+			<div style="margin-top: 30px;"
+			<img src="/img/logo_txt_lg.png" alt="mumbojumbo" />
+			<h2>A game to help you communicate.</h2>
+			</div>
+			</div>
+			<!-- end .grid_6 -->
+			<div class="clear"></div>
+			<img src="/img/header_border.png">
+		</div>
+		<!-- end .grid_12 -->
+		<div class="clear"></div>
+		<div class="grid_8">
+			<div class="main">
+			<span style="text-align: center; text-transform: uppercase;">
+			<p><span style="font-size: 2.5em; font-weight: bold;">Hello</span><br />
+			<span style="font-size: 1.6em; 	word-spacing: .2em;">My Name Is</span></p>\
+			<h3 class="user_name"><%=# @shout.jumbo_name %></h3>
+			</span>
+			</div>		
+					<div class="ratings">
+					<div class="grid_2 alpha">
+					<img src="/img/clarity_icon.png" alt="Clarity">
+					</div>
+					<div class="grid_4 prefix_1">
+					<img src="/img/clarity_text.png" alt="Clarity"> <br />
+					category description
+					</div>
+					<div class="grid_1 omega">
+					<div class="score">
+
+					</div>
+					</div>
+														<div class="clear"></div>
+
+					</div>
+					
+										<div class="clear"></div>
+										<div class="sep"></div>
+
+
+					
+					<div class="ratings">
+					<div class="grid_2 alpha">
+					<img src="/img/brevity_icon.png" alt="Brevity">
+					</div>
+					<div class="grid_4 prefix_1">
+					<img src="/img/brevity_text.png" alt="Brevity"> <br />
+					category description
+					</div>
+					<div class="grid_1 omega">
+					<div class="score">
+
+					</div>
+					</div>
+														<div class="clear"></div>
+
+					</div>
+					
+									<div class="clear"></div>
+														<div class="sep"></div>
+
+					
+					<div class="ratings">
+					<div class="grid_2 alpha">
+					<img src="/img/accuracy_icon.png" alt="Accuracy"> 
+					</div>
+					<div class="grid_4 prefix_1">
+					<img src="/img/accuracy_text.png" alt="Accuracy"> <br />
+					category description
+					</div>
+					<div class="grid_1 omega">
+					<div class="score">
+
+					</div>
+					</div>
+														<div class="clear"></div>
+
+					</div>
+					
+					<div class="clear"></div>
+					<div class="sep"></div>
+					
+					<div class="ratings">
+					<div class="grid_2 alpha">
+					<img src="/img/reach_icon.png" alt="Reach">
+					</div>
+					<div class="grid_4 prefix_1">
+					<img src="/img/reach_text.png" alt="Reach"> <br />
+					category description
+					<ul class="reach_results">
+						<li>You used <span style="color: #09a7e2;">#</span> obscene words</li>
+					    <li>You used <span style="color: #09a7e2;">#</span> obscene words</li>
+					    <li>You used <span style="color: #09a7e2;">#</span> obscene words</li>
+					</ul>
+					</div>
+					<div class="grid_1 omega">
+					<div class="score">
+
+					</div>
+					</div>
+														<div class="clear"></div>
+																			<div class="sep"></div>
+
+
+					</div>
+				<div class="grid_5 prefix_1 alpha">
+				<img src="/img/totalscore_text.png" alt="TOTAL SCORE" style="margin-top: 30px;">
+				</div>	
+				<div class="grid_2 omega">
+				<div class="score_total">
+
+					</div>
+				</div>
+		</div>
+		<!-- end .grid_8 -->
+		<div class="grid_4">
+			<div id="sidebar">
+			<h3 class="banner">Most Famous Jumbos</h3>
+<% for n in @famous_mumbos %>
+	<ul>
+		<li>	<a href='/<%= n %>/show' ><%= n %></a>
+		</li>
+	</ul>
+<% end %>
+			
+			<h3 class="banner_light">Most Recent Jumbos</h3>
+			<ul>
+				<% for shout in @jumbo_shouts %> 
+					<p><%= shout.shouted_at %></p>
+					<p>Accuracy: <%= shout.accuracy_score %> Brevity: <%= shout.brevity_score %> Clarity: <%= shout.clarity_score %> Reach: <%= shout.reach_score %></p>
+				<% end %>
+			</ul>
+			
+			</div>
+		</div>
+		<!-- end .grid_4 -->
+		<div class="clear"></div>
+		<div class="grid_12">
+			<div style="margin: 40px 0px;">
+			<span style="color: #044a65;">Created by <a href="http://www.inmans.org" target="_blank">Tim</a> 
+			and <a href="http://www.twitter.com/handsomepanda">Jesse Inman</a>.</span>
+			</div>
+			</div>
+		<!-- end .grid_12 -->
+	</div>
+	<!-- end .container_12 -->
+
+</body>
+</html>

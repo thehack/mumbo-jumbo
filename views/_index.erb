@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Base Template</title>
+<link rel="stylesheet" href="css/reset.css" />
+<link rel="stylesheet" href="css/text.css" />
+<link rel="stylesheet" href="css/960.css" />
+<link rel="stylesheet" href="css/main.css" />
+<style>
+
+</style>
+
+</head>
+<body>
+	<div class="container_12">
+		<div class="grid_12">
+			<div class="grid_3">
+			<img src="img/logo_lg.png" alt="mumbojumbo" />
+			</div>
+			<!-- end .grid_3 -->
+			<div class="grid_6">
+			<div style="margin-top: 30px;"
+			<img src="img/logo_txt_lg.png" alt="mumbojumbo" />
+			<h2>A Game to Help You Communicate.</h2>
+			</div>
+			</div>
+			<!-- end .grid_6 -->
+			<div class="clear"></div>
+			<img src="img/header_border.png">
+		</div>
+		<!-- end .grid_12 -->
+		<div class="clear"></div>
+		<div class="grid_8">
+			<div class="main">
+			<form method="post" action="">
+			  <textarea name="jumbo_name" style="width: 560px; height: 16px; padding: 10px;" onFocus="this.value=''; this.onfocus=null;">name-tag</textarea>
+				<textarea name="message" style="width: 560px; height: 190px; padding: 10px;" onFocus="this.value=''; this.onfocus=null;">Paste your text in here so Jumbo can chew on your mumbo</textarea>
+				<div class="grid_3 prefix_5">
+				<input type="submit" name="" value="" class="feed_button" />
+				</div>
+				<!-- end .grid_3 prefix_5 -->
+			</form>
+			</div>
+		</div>
+		<!-- end .grid_7 prefix_1 -->
+		<div class="grid_4">
+			<div id="sidebar">
+			<h3 class="banner">Most Famous Jumbos</h3>
+			<% for n in @famous_mumbos %>
+			<ul>
+				<li>	<a href='/<%=h n %>/show' ><%=h n %></a>
+				</li>
+				</ul>
+			<% end %>
+			<h3 class="banner_light">Most Recent Jumbos</h3>
+			<ul>
+			<% @shouts.each do |shout| %>
+				<li>
+					<a href='<%=h shout.jumbo_name %>/show'><%=h shout.jumbo_name %>
+					</a>&nbsp;on <%=h shout.shouted_at %>
+					<a href='/shouts/<%=h shout.id %>/delete' onclick="if (confirm('Are you sure?')) 
+		{ var f = document.createElement('form'); f.style.display = 'none'; 
+		this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;f.submit(); };return false;"> x 
+					</a>
+				</li>
+			<% end %>
+
+			</ul>
+			</div>
+		</div>
+		<!-- end .grid_4 -->
+		<div class="clear"></div>
+		<div class="grid_12">
+			<span style="color: #044a65;">Created by <a href="http://www.inmans.org" target="_blank">Tim</a> 
+			and <a href="http://www.twitter.com/handsomepanda">Jesse Inman</a>.</span>
+			
+			</div>
+		<!-- end .grid_12 -->
+	</div>
+	<!-- end .container_12 -->

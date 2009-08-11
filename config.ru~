@@ -1,0 +1,5 @@
+require 'appengine-rack'
+
+require 'guestbook'
+
+run Sinatra::Application

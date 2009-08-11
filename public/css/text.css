@@ -1,0 +1,73 @@
+body {
+	font-family: 'Lucida Sans', 'Helvetica', sans-serif;
+	font-size: 9pt;
+	color: #FFF;
+	font-weight: normal;
+	font-variant: normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: normal;
+}
+
+h2 {
+	font-size: 24px;
+	color: #09a7e2;
+	padding-left: 15px;
+}
+
+h3.banner {
+	background: url(../img/h3_banner_bg.png) no-repeat transparent;
+	font-size: 1.2em;
+	text-align: center;
+	width: 276px;
+	line-height: 34px;
+	padding-bottom: 8px;
+	color: #033649;
+}
+
+h3.banner_light {
+	background: url(../img/h3_banner_bg_light.png) no-repeat transparent;
+	font-size: 1.2em;
+	text-align: center;
+	width: 276px;
+	line-height: 34px;
+	padding-bottom: 8px;
+	color: #white;
+}
+
+h3.user_name {
+	color: #078bbc;
+	font-size: 4em;
+	margin: 15px 0px;
+}
+
+ul {
+	list-style-position: outside;
+	list-style-type: disc;
+	margin: 10px 80px;
+}
+
+li {
+	margin: 4px 0px;
+}
+
+
+ul.reach_results {
+	list-style-type: none;
+	margin: 10px 0;
+}
+
+ul.reach_results li {
+	margin: 0px;
+}
+
+a, a:visited {
+	
+	color:  #af3602;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
