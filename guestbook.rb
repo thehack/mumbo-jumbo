@@ -4,31 +4,27 @@ require 'dm-core'
 
 DataMapper.setup(:default, "appengine://auto")
 
-# Create your model class
+# These are the classes
 class Shout
   include DataMapper::Resource
   property :id, Serial
-  property :message, Text
   property :jumbo_name, String
-  property :shouted_at, Integer
-  property :sentences, Integer
-  property :words, Integer
-  property :words_per_sentence, Integer
-  property :letters_per_word, Integer
-  property :buzzwords, Integer
-  property :selfish_words, Integer
   property :clarity_score, Integer
   property :brevity_score, Integer
   property :accuracy_score, Integer
   property :reach_score, Integer
 end
 
-class Contact
+class Famous
   include DataMapper::Resource
-   property :id, Serial
-  property :email, String
+  property :id, Serial
+  property :jumbo_name, String
+  property :clarity_score, Integer
+  property :brevity_score, Integer
+  property :accuracy_score, Integer
+  property :reach_score, Integer
 end
-  
+
 # Make sure our template can use <%=h
 helpers do
   include Rack::Utils
@@ -37,28 +33,47 @@ end
 
 get '/' do
   # Just list all the shouts
-  @shouts = Shout.all(:order => [:shouted_at.desc])
-  @famous_mumbos = ['barack obama', 'kaynye west', 'jfk', 'george bush', 'charles dickens', 'bono', '_why', 'steve jobs', 'brittney']
+  @shouts = Shout.all(:order => [:id.desc], :limit => 8)
+  @famous = Famous.all(:order => [:id.desc], :limit => 8)
+# @scores = Shout.all(:order => [:total_score.desc], :limit => 8)
   erb :index
 end
 
-post '/contact' do
-	shout = Contact.create(
-		:email => params[:email].downcase )
-  redirect '/'
+get '/*/famous' do
+	@celeb = Famous.get(params[:'splat'])
+  @famous = Famous.all(:order => [:id.desc], :limit => 8)
+  @shouts = Shout.all(:order => [:id.desc], :limit => 8)
+	@total_score = @celeb.brevity_score + @celeb.clarity_score + @celeb.accuracy_score + @celeb.reach_score
+	erb :showfamous
 end
 
-post '/' do
-	#defining some vars so we can use them in the model
+get '/*/show' do
+  @famous = Famous.all(:order => [:id.desc], :limit => 8)
+  @shouts = Shout.all(:order => [:id.desc], :limit => 8)
+	@shout = Shout.get(params[:'splat'])
+	@total_score = @shout.brevity_score + @shout.clarity_score + @shout.accuracy_score + @shout.reach_score
+	erb :show
+end
+
+get '/admin/add_famous_people' do
+	erb :add_famous
+end
+
+get '/admin' do
+"<center><a href='/admin/add_famous_people'>Famous Jumbos</a><br/><a href='/admin/cursewords'>cursewords (not implemented)</a><br/><a href='/admin/selfish'>Self-focused (not implemented)</a><br/><a href='/admin/buzzwords'>Buzzwords (not implemented)</a><br/><a href='/admin/superlatives'>Superlatives (not implemented)</a>"
+end
+
+post '/newmumbo' do
+	#defining some variables so we can use them in the model
 	message = params[:message].downcase
   sentences = message.split(/[^a-zA-Z\,\;\"\'\-\_\(\)\*\%\^\$\$\@\~\+\=\{\}\[\]\:\<\>\s]/).length
   words = message.split(" ")
   wordnum = words.length
   letters = message.chomp.length
-  buzzwords = %w[actionable  assessment benchmark change coach compensation actions resolution constraints competencies practices dashboard deliverables diagnosis downsize enterprise excellence gatekeeper geographically dispersed headhunter  income pressures individual contributor leadership learning experience hornet mastery matrix organization momentum    nesting outcomes partnership positive momentum practical application process product service environment recommendation reengineer requirements revenue rightsize sigma standards superior performance supply chain synergy system teamwork touchpoints]
+  buzzwords = %w[actionable  assessment benchmark coach compensation actions resolution constraints competencies practices dashboard deliverables diagnosis downsize enterprise excellence gatekeeper geographically dispersed headhunter  income pressures individual contributor leadership learning experience hornet mastery matrix organization momentum nesting outcomes partnership positive momentum practical application process product service environment recommendation reengineer requirements revenue rightsize sigma standards superior performance supply chain synergy system teamwork touchpoints]
   selfish_words = %w[me myself i mine my]
   selfish = words - (words - %w[me myself i mine my])
-  superlatives = (((words - ( words - %w[super best better most very really amazing awesome worst hate love nobody everybody always never honestly])).length)*2)/wordnum
+  superlatives = (((words - ( words - %w["always", "amazing", "awesome", "best", "better", "everybody", "everyone", "hate", "honestly", "love", "most", "never", "nobody", "really", "super", "very", "worst"])).length)*2)/wordnum
   clarity_metric = {3 => 15, 4 => 20, 5 => 25, 6 => 20, 7 =>15, 8 =>10}
   brevity_metric = {0 => 0, 1 => 0, 2 => 5, 3 => 10, 4 => 10, 5 => 15, 6 => 15, 7 => 20, 8 => 20, 9 => 25, 10 => 25, 11 => 25, 12 => 20, 13 => 20, 14 => 20, 15 => 15, 16 => 15, 17 => 10, 18 => 10, 19 => 10, 20 => 10, 21 =>5, 22 =>5, 23 =>5, 24 =>5}
 	lpw = (letters/wordnum).round
@@ -66,14 +81,6 @@ post '/' do
 	r_score = 25 - (((words - (words - (buzzwords + selfish_words))).length)*25)/wordnum
   shout = Shout.create(
 		:jumbo_name => params[:jumbo_name].downcase,
-  	:message => message, 
-    :shouted_at => Time.now.strftime("%m/%d/%Y at %I:%M%p"), 
-    :sentences => sentences,
-    :words => wordnum,
-    :words_per_sentence => wps,
-    :letters_per_word => lpw,
-    :buzzwords => words.length - (words - buzzwords).length,
-    :selfish_words => selfish.length,
     :accuracy_score => 25 - superlatives*5/wordnum,
     :reach_score => r_score ,
     :clarity_score => 
@@ -89,17 +96,43 @@ post '/' do
     		brevity_metric[wps]
     	end
     )
-
-  redirect '/'
-
+redirect '/'+shout.id.to_s+'/show'
 end
 
-get '/*/show' do
-	@famous_mumbos = ['barack obama', 'kaynye west', 'jfk', 'george bush', 'charles dickens', 'bono', '_why', 'steve jobs', 'brittney']
-	@jumbo_shouts = Shout.all(:jumbo_name => params[:'splat'])
-	@shout = Shout.first(:jumbo_name => params[:'splat'])
-	@total_score = @shout.brevity_score + @shout.clarity_score + @shout.accuracy_score + @shout.reach_score
-	erb :show
+post '/newfamous' do
+	#defining some vars so we can use them in the model
+	message = params[:message].downcase
+  sentences = message.split(/[^a-zA-Z\,\;\"\'\-\_\(\)\*\%\^\$\$\@\~\+\=\{\}\[\]\:\<\>\s]/).length
+  words = message.split(" ")
+  wordnum = words.length
+  letters = message.chomp.length
+  buzzwords = %w[actionable  assessment benchmark change coach compensation actions resolution constraints competencies practices dashboard deliverables diagnosis downsize enterprise excellence gatekeeper geographically dispersed headhunter  income pressures individual contributor leadership learning experience hornet mastery matrix organization momentum    nesting outcomes partnership positive momentum practical application process product service environment recommendation reengineer requirements revenue rightsize sigma standards superior performance supply chain synergy system teamwork touchpoints]
+  selfish_words = %w[me myself i mine my]
+  selfish = words - (words - %w[me myself i mine my])
+  superlatives = (((words - ( words - %w[super best better most very really amazing awesome worst hate love nobody everybody always never honestly])).length)*2)/wordnum
+  clarity_metric = {3 => 15, 4 => 20, 5 => 25, 6 => 20, 7 =>15, 8 =>10}
+  brevity_metric = {0 => 0, 1 => 0, 2 => 5, 3 => 10, 4 => 10, 5 => 15, 6 => 15, 7 => 20, 8 => 20, 9 => 25, 10 => 25, 11 => 25, 12 => 20, 13 => 20, 14 => 20, 15 => 15, 16 => 15, 17 => 10, 18 => 10, 19 => 10, 20 => 10, 21 =>5, 22 =>5, 23 =>5, 24 =>5}
+	lpw = (letters/wordnum).round
+	wps = (wordnum/sentences).round
+	r_score = 25 - (((words - (words - (buzzwords + selfish_words))).length)*25)/wordnum
+  famous = Famous.create(
+		:jumbo_name => params[:jumbo_name].downcase,
+    :accuracy_score => 25 - superlatives*5/wordnum,
+    :reach_score => r_score ,
+    :clarity_score => 
+    	if lpw <= 2 || lpw >= 9
+    		5
+    	else 
+    	clarity_metric[lpw]
+    	end,
+    :brevity_score =>
+    	if wps > 24
+    		0
+    	else
+    		brevity_metric[wps]
+    	end
+    )
+  redirect '/'
 end
 
 post '/shouts/*/delete' do

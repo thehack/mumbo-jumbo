@@ -1,6 +1,6 @@
 <appengine-web-app xmlns='http://appengine.google.com/ns/1.0'>
-  <application>mumbo25</application>
-  <version>1</version>
+  <application>jrubylicious</application>
+  <version>2</version>
   <public-root>/public</public-root>
   <static-files/>
   <resource-files/>

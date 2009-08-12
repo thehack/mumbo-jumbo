@@ -1,4 +1,15 @@
-<!-- Indices written at Mon, 10 Aug 2009 16:25:42 UTC -->
+<!-- Indices written at Wed, 12 Aug 2009 06:23:17 UTC -->
 
-<datastore-indexes/>
+<datastore-indexes>
 
+    <!-- Used 1 time in query history -->
+    <datastore-index kind="Famouses" ancestor="false" source="auto">
+        <property name="__key__" direction="desc"/>
+    </datastore-index>
+
+    <!-- Used 1 time in query history -->
+    <datastore-index kind="Shouts" ancestor="false" source="auto">
+        <property name="__key__" direction="desc"/>
+    </datastore-index>
+
+</datastore-indexes>

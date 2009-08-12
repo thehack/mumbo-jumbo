@@ -4,6 +4,6 @@ require 'guestbook'
 
 
 AppEngine::Rack.configure_app(
-    :application => "jrubylicious",
-    :version => 2)
+    :application => "mumbo25",
+    :version => 1)
 run Sinatra::Application

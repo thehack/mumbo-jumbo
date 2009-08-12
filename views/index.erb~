@@ -33,8 +33,9 @@
 		<div class="clear"></div>
 		<div class="grid_8">
 			<div class="main">
-			<form method="post" action="/contact">
-			  <textarea name="email" style="width: 560px; height: 16px; padding: 10px;" onFocus="this.value=''; this.onfocus=null;">Feed me your email and I'll contact you when we're ready.</textarea>
+			<form method="post" action="/newmumbo">
+			  <textarea name="jumbo_name" style="width: 560px; height: 16px; padding: 10px;" onFocus="this.value=''; this.onfocus=null;">name-tag</textarea>
+				<textarea name="message" style="width: 560px; height: 190px; padding: 10px;" onFocus="this.value=''; this.onfocus=null;">Paste your text in here so Jumbo can chew on your mumbo</textarea>
 				<div class="grid_3 prefix_5">
 				<input type="submit" name="" value="" class="feed_button" />
 				</div>
@@ -43,7 +44,34 @@
 			</div>
 		</div>
 		<!-- end .grid_7 prefix_1 -->
-		
+		<div class="grid_4">
+			<div id="sidebar">
+			<h3 class="banner">Most Famous Jumbos</h3>
+			<% @famous.each do |fam| %>
+			<ul>
+				<li>	<a href='/<%=h fam.id %>/famous' ><%=h fam.jumbo_name %></a>
+				</li>
+				</ul>
+			<% end %>
+			<h3 class="banner_light">Most Recent Jumbos</h3>
+			<ul>
+			<% @shouts.each do |shout| %>
+				<li>
+					<a href='/<%=h shout.id %>/show'><%=h shout.jumbo_name %>
+					</a>
+					<a href='/shouts/<%=h shout.id %>/delete' onclick="if (confirm('Are you sure?')) 
+		{ var f = document.createElement('form'); f.style.display = 'none'; 
+		this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;f.submit(); };return false;"> x 
+					</a>
+				</li>
+			<% end %>
+
+			</ul>
+			</div>
+		</div>
+		<!-- end .grid_4 -->
+		<div class="clear"></div>
+		<div class="grid_12">
 			<span style="color: #044a65;">Created by <a href="http://www.inmans.org" target="_blank">Tim</a> 
 			and <a href="http://www.twitter.com/handsomepanda">Jesse Inman</a>.</span>
 			
