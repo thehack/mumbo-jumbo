@@ -140,7 +140,7 @@
 			<h3 class="banner">Most Famous Jumbos</h3>
 			<% @famous.each do |fam| %>
 			<ul>
-				<li>	<a href='/<%=h fam.id %>/show' ><%=h fam.jumbo_name %></a>
+				<li>	<a href='/<%=h fam.id %>/famous' ><%=h fam.jumbo_name %></a>
 				</li>
 			</ul>
 			<% end %>
