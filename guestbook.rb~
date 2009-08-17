@@ -13,6 +13,7 @@ class Shout
   property :brevity_score, Integer
   property :accuracy_score, Integer
   property :reach_score, Integer
+  property :total_score, Integer
 end
 
 class Famous

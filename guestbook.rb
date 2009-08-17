@@ -37,7 +37,7 @@ get '/' do
   # Just list all the shouts
   @shouts = Shout.all(:order => [:id.desc], :limit => 8)
   @famous = Famous.all(:order => [:id.desc], :limit => 8)
-# @scores = Shout.all(:order => [:total_score.desc], :limit => 8)
+ @scores = Shout.all(:order => [:total_score.desc], :limit => 8)
   erb :index
 end
 
@@ -45,7 +45,6 @@ get '/*/famous' do
 	@celeb = Famous.get(params[:'splat'])
   @famous = Famous.all(:order => [:id.desc], :limit => 8)
   @shouts = Shout.all(:order => [:id.desc], :limit => 8)
-	@total_score = @celeb.brevity_score + @celeb.clarity_score + @celeb.accuracy_score + @celeb.reach_score
 	erb :showfamous
 end
 
@@ -53,7 +52,6 @@ get '/*/show' do
   @famous = Famous.all(:order => [:id.desc], :limit => 8)
   @shouts = Shout.all(:order => [:id.desc], :limit => 8)
 	@shout = Shout.get(params[:'splat'])
-	@total_score = @shout.brevity_score + @shout.clarity_score + @shout.accuracy_score + @shout.reach_score
 	erb :show
 end
 
