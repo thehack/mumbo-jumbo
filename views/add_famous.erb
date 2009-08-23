@@ -1,5 +1,0 @@
-<% @shouts.each do |shout| %>
-<p><%= shout.jumbo_name %><a href='/shouts/<%=h shout.id %>/makefamous' onclick="if (confirm('Are you sure?')) 
-		{ var f = document.createElement('form'); f.style.display = 'none'; 
-		this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;f.submit(); };return false;">Make Famous</a></p>
-<% end %>
