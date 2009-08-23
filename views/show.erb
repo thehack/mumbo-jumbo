@@ -138,13 +138,11 @@
 		<div class="grid_4">
 			<div id="sidebar">
 			<h3 class="banner">Most Famous Jumbos</h3>
-			<% @famous.each do |fam| %>
 			<ul>
-				<li>	<a href='/<%=h fam.id %>/famous' ><%=h fam.jumbo_name %></a>
-				</li>
-			</ul>
+			<% @famous.each do |fam| %>
+				<li>	<a href='/<%=h fam.id %>/show' ><%=h fam.jumbo_name %></a></li>
 			<% end %>
-			
+			</ul>
 			<h3 class="banner_light">Most Recent Jumbos</h3>
 			<ul>
 			<% @shouts.each do |shout| %>
@@ -158,7 +156,12 @@
 				</li>
 			<% end %>
 			</ul>
-			
+			<h3 class="banner">High Scorers</h3>
+			<ul>
+			<% @scores.each do |scorer| %>
+				<li>	<a href='/<%=h scorer.id %>/show' ><%=h scorer.jumbo_name %></a></li>
+			<% end %>
+			</ul>			
 			</div>
 		</div>
 		<!-- end .grid_4 -->
