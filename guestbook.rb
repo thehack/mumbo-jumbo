@@ -14,6 +14,8 @@ class Shout
   property :accuracy_score, Integer
   property :reach_score, Integer
   property :total_score, Integer
+  property :jargon, String
+  property :jargon_num, Integer
   property :famous, Boolean
 end
 
@@ -56,6 +58,14 @@ post '/newmumbo' do
   wordnum = words.length
   letters = message.chomp.length
   buzzwords = %w[actionable  assessment benchmark change coach compensation actions resolution constraints competencies practices dashboard deliverables diagnosis downsize enterprise excellence gatekeeper geographically dispersed headhunter  income pressures individual contributor leadership learning experience hornet mastery matrix organization momentum    nesting outcomes partnership positive momentum practical application process product service environment recommendation reengineer requirements revenue rightsize sigma standards superior performance supply chain synergy system teamwork touchpoints]
+  
+# calculate jargon
+
+jargon= Array.new
+buzzwords.each do |b|
+	jargon <<	message.scan(b)
+end
+jargon.flatten!
   selfish_words = %w[me myself i mine my]
   selfish = words - (words - %w[me myself i mine my])
   superlatives = (((words - ( words - %w[super best better most very really amazing awesome worst hate love nobody everybody always never honestly])).length)*2)/wordnum
@@ -77,6 +87,8 @@ post '/newmumbo' do
     	end
   shout = Shout.create(
 		:jumbo_name => params[:jumbo_name].downcase,
+		:jargon => jargon.join(", "),
+		:jargon_num => jargon.length,
     :accuracy_score => a_score,
     :reach_score => r_score ,
     :clarity_score => c_score,
@@ -96,5 +108,5 @@ post '/shouts/*/makefamous' do
 	@shout = Shout.get(params['splat'])
 	@shout.famous = true
 	@shout.save
-	redirect '/'
+	redirect '/admin/add_famous_people'
 end

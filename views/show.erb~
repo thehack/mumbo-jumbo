@@ -110,9 +110,9 @@
 					<img src="/img/reach_text.png" alt="Reach"> <br />
 					category description
 					<ul class="reach_results">
-						<li>You used <span style="color: #09a7e2;">#</span> obscene words</li>
-					    <li>You used <span style="color: #09a7e2;">#</span> obscene words</li>
-					    <li>You used <span style="color: #09a7e2;">#</span> obscene words</li>
+						<li>You used <%=  shout.jargon_num %> <span style="color: #09a7e2;"><%= shout.jargon %></span> jargon/buzzwords</li>
+					   <li>You used <span style="color: #09a7e2;">#</span> obscene words</li>
+					   <li>You used <span style="color: #09a7e2;">#</span> obscene words</li>
 					</ul>
 					</div>
 					<div class="grid_1 omega">
@@ -156,7 +156,7 @@
 				</li>
 			<% end %>
 			</ul>
-			<h3 class="banner">High Scorers
+			<h3 class="banner">High Scorers</h3>
 			<ul>
 			<% @scores.each do |scorer| %>
 				<li>	<a href='/<%=h scorer.id %>/show' ><%=h scorer.jumbo_name %></a></li>
