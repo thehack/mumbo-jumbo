@@ -110,8 +110,10 @@
 					<img src="/img/reach_text.png" alt="Reach"> <br />
 					category description
 					<ul class="reach_results">
-						<li>You used <%=  shout.jargon_num %> <span style="color: #09a7e2;"><%= shout.jargon %></span> jargon/buzzwords</li>
-					   <li>You used <span style="color: #09a7e2;">#</span> obscene words</li>
+						<li>You used <%= @shout.jargon_num %> <span style="color: #09a7e2;"><%= @shout.jargon %></span> jargon/buzzwords</li>
+					  <% unless @shout.profanity_num ==nil%> 
+					  <li>You used <span style="color: #09a7e2;"><%=h @shout.profanity_num %></span> words that might offend.</li>
+					  <% end -%>
 					   <li>You used <span style="color: #09a7e2;">#</span> obscene words</li>
 					</ul>
 					</div>
