@@ -1,14 +1,14 @@
-<!-- Indices written at Thu, 27 Aug 2009 09:39:19 UTC -->
+<!-- Indices written at Sun, 24 Jan 2010 06:52:14 UTC -->
 
 <datastore-indexes>
 
-    <!-- Used 1 time in query history -->
+    <!-- Used 17 times in query history -->
     <datastore-index kind="Shouts" ancestor="false" source="auto">
         <property name="famous" direction="asc"/>
         <property name="__key__" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 1 time in query history -->
+    <!-- Used 17 times in query history -->
     <datastore-index kind="Shouts" ancestor="false" source="auto">
         <property name="__key__" direction="desc"/>
     </datastore-index>

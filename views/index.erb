@@ -21,7 +21,7 @@
 			<!-- end .grid_3 -->
 			<div class="grid_6">
 			<div style="margin-top: 30px;"
-			<img src="img/logo_txt_lg.png" alt="mumbojumbo" />
+			<a href="/"><img src="/img/logo_txt_lg.png" alt="mumbojumbo" /></a>
 			<h2>A Game to Help You Communicate.</h2>
 			</div>
 			</div>
@@ -48,7 +48,7 @@
 			<div id="sidebar">
 			<h3 class="banner">Most Famous Jumbos</h3>
 			<ul>
-			<% @famous.each do |fam| %>\
+			<% @famous.each do |fam| %>
 				<li>	<a href='/<%=h fam.id %>/show' ><%=h fam.jumbo_name %></a>
 				</li>
 

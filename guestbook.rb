@@ -81,14 +81,16 @@ profanity.flatten!
   selfish_words = %w[me myself i mine my]
   selfish = words - (words - %w[me myself i mine my])
   superlatives = (((words - ( words - %w[super best better most very really amazing awesome worst hate love nobody everybody always never honestly])).length)*2)/wordnum
-  clarity_metric = {3 => 15, 4 => 20, 5 => 25, 6 => 20, 7 =>15, 8 =>10}
-  brevity_metric = {0 => 0, 1 => 0, 2 => 5, 3 => 10, 4 => 10, 5 => 15, 6 => 15, 7 => 20, 8 => 20, 9 => 25, 10 => 25, 11 => 25, 12 => 20, 13 => 20, 14 => 20, 15 => 15, 16 => 15, 17 => 10, 18 => 10, 19 => 10, 20 => 10, 21 =>5, 22 =>5, 23 =>5, 24 =>5}
+	#clarity is determined by letters per word 
+  clarity_metric = {3 => 12, 4 => 19, 5 => 25, 6 => 20, 7 =>15, 8 =>10}
+  #brevity is determined by words per sentance.
+  brevity_metric = {0 => 0, 1 => 1, 2 => 6, 3 => 11, 4 => 13, 5 => 15, 6 => 17, 7 => 20, 8 => 22, 9 => 25, 10 => 24, 11 => 23, 12 => 20, 13 => 19, 14 => 18, 15 => 16, 16 => 15, 17 => 12, 18 => 11, 19 => 10, 20 => 8, 21 =>7, 22 =>6, 23 =>5, 24 =>3}
 	lpw = (letters/wordnum).round
 	wps = (wordnum/sentences).round
 	r_score = 25 - (25*(profanity.length + selfish.length + jargon.length)/wordnum)
 	a_score = 25 - superlatives*5/wordnum
 	c_score = if lpw <= 2 || lpw >= 9
-    		5
+    		0
     	else 
     	clarity_metric[lpw]
     	end
