@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'dm-core'
+require 'appengine-apis/users'
 
 DataMapper.setup(:default, "appengine://auto")
 
@@ -82,7 +83,7 @@ end
 profanity.flatten!
 
   selfish_words = %w[me myself i mine my]
-  selfish = words - (words - %w[me myself i mine my])
+  selfish = words - (words - %w[me myself i mine my personally])
   superlatives = (((words - ( words - %w[always amazing awesome best better crazy everybody hate honestly love most never nobody really super top-rated utmost utter very worst])).length))
 	#clarity is determined by letters per word 
   clarity_metric = {3 => 12, 4 => 19, 5 => 25, 6 => 20, 7 =>15, 8 =>10}
@@ -90,8 +91,8 @@ profanity.flatten!
   brevity_metric = {0 => 0, 1 => 1, 2 => 6, 3 => 11, 4 => 13, 5 => 15, 6 => 17, 7 => 20, 8 => 22, 9 => 25, 10 => 24, 11 => 23, 12 => 20, 13 => 19, 14 => 18, 15 => 16, 16 => 15, 17 => 12, 18 => 11, 19 => 10, 20 => 8, 21 =>7, 22 =>6, 23 =>5, 24 =>3}
 	lpw = (letters/wordnum).round
 	wps = (wordnum/sentences).round
-	r_score = 25 - (25*(profanity.length + selfish.length + jargon.length)/wordnum)
-	a_score = 25 - (superlatives*15/wordnum).round
+	r_score = 25 - (100*(profanity.length + selfish.length + jargon.length)/wordnum)
+	a_score = 25 - (superlatives*100/wordnum).round
 	c_score = if lpw <= 2 || lpw >= 9
     		0
     	else 
@@ -129,5 +130,5 @@ post '/shouts/*/makefamous' do
 	@shout = Shout.get(params['splat'])
 	@shout.famous = true
 	@shout.save
-	redirect '/admin/add_famous_people'
+	redirect '/'
 end

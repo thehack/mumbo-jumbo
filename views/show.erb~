@@ -117,12 +117,11 @@ color: #09a7e2;
 						<div class="grid_4 prefix_1">
 							<img src="/img/reach_text.png" alt="Reach" /> <br />
 							You know what your talking about and you want your audience to understand what you do, so say it without the crutch of jargon or the buzz of buzzwords. Though your buds may think your colorful language is clever, your potential audience might not, so if you want to have a wide reach, keep it clean.
-							<% unless @shout.jargon_num == 0 %>
+
 							<li>You used <%= @shout.jargon_num %> buzzwords.</li>
-							<% end %>
-					  	<% unless @shout.profanity_num == 0 %> 
-					  	<li>You used <%=h @shout.profanity_num %></span> words that might offend.</li>
-					  	<% end %>
+
+
+					  	<li>You used <%=h @shout.profanity_num %></span> words that might offend.</li><br />
 						</div>
 						<div class="grid_1 omega">
 							<div class="score">
@@ -156,10 +155,12 @@ color: #09a7e2;
 				<li>
 					<a href='/<%=h shout.id %>/show'><%=h shout.jumbo_name %>
 					</a>
+					<% if AppEngine::Users.current_user %>
+					<% if AppEngine::Users.admin? %>
 					<a href='/shouts/<%=h shout.id %>/delete' onclick="if (confirm('Are you sure?')) 
 		{ var f = document.createElement('form'); f.style.display = 'none'; 
 		this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;f.submit(); };return false;"> x 
-					</a>
+					</a><% end %><% end %>
 				</li>
 			<% end %>
 			</ul>
