@@ -1,14 +1,16 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Base Template</title>
+	<title><%= @shout.jumbo_name %>'s score</title>
 <link rel="stylesheet" href="/css/reset.css" />
 <link rel="stylesheet" href="/css/text.css" />
 <link rel="stylesheet" href="/css/960.css" />
 <link rel="stylesheet" href="/css/main.css" />
 <style>
-
+li {
+color: #09a7e2;
+}
 </style>
 
 </head>
@@ -45,7 +47,7 @@
 					</div>
 					<div class="grid_4 prefix_1">
 					<img src="/img/clarity_text.png" alt="Clarity"> <br />
-					Mumbo knows that if you aren't impressing anyone with all those big words, and your're probably not getting your point across, either.  If you want to improve your clarity, think, "How would I explain this to a child?"
+					Mumbo knows that you aren't impressing anyone with all those big words, and your're probably not getting your point across, either.<li>You used about <%=h @shout.letters_per_word  %> letters per word</li>
 					</div>
 					<div class="grid_1 omega">
 					<div class="score">
@@ -67,7 +69,8 @@
 					</div>
 					<div class="grid_4 prefix_1">
 					<img src="/img/brevity_text.png" alt="Brevity"> <br />
-					category description
+					What's your point already? Your brevity score measures your ability to 'spit it out already' by averageing your words per sentence.
+					<li>You used about <%=h @shout.words_per_sentence %> words per sentence</li>
 					</div>
 					<div class="grid_1 omega">
 					<div class="score">
@@ -88,7 +91,12 @@
 					</div>
 					<div class="grid_4 prefix_1">
 					<img src="/img/accuracy_text.png" alt="Accuracy"> <br />
-					category description
+					When you have a good product, you don't have to over-sell it.  There's an easy way to determine if you're over-doing it: add up your superlatives.
+					<li>You used <%=h @shout.superlatives  %>
+					<% if @shout.superlatives == 1 %> superlative 					
+					<% else %> superlatives
+					<% end %>
+					</li>
 					</div>
 					<div class="grid_1 omega">
 					<div class="score">
@@ -103,28 +111,26 @@
 					<div class="sep"></div>
 					
 					<div class="ratings">
-					<div class="grid_2 alpha">
-					<img src="/img/reach_icon.png" alt="Reach">
-					</div>
-					<div class="grid_4 prefix_1">
-					<img src="/img/reach_text.png" alt="Reach"> <br />
-					category description
-					<ul class="reach_results">
-						<li>You used <%= @shout.jargon_num %> <span style="color: #09a7e2;"><%= @shout.jargon %></span> jargon/buzzwords</li>
-					  <% unless @shout.profanity_num == nil%> 
-					  <li>You used <span style="color: #09a7e2;"><%=h @shout.profanity_num %></span> words that might offend.</li>
-					  <% end %>
-					</ul>
-					</div>
-					<div class="grid_1 omega">
-					<div class="score">
-					<%=h @shout.reach_score %>
-					</div>
-					</div>
-														<div class="clear"></div>
-																			<div class="sep"></div>
-
-
+						<div class="grid_2 alpha">
+							<img src="/img/reach_icon.png" alt="Reach">
+						</div>
+						<div class="grid_4 prefix_1">
+							<img src="/img/reach_text.png" alt="Reach" /> <br />
+							You know what your talking about and you want your audience to understand what you do, so say it without the crutch of jargon or the buzz of buzzwords. Though your buds may think your colorful language is clever, your potential audience might not, so if you want to have a wide reach, keep it clean.
+							<% unless @shout.jargon_num == 0 %>
+							<li>You used <%= @shout.jargon_num %> buzzwords.</li>
+							<% end %>
+					  	<% unless @shout.profanity_num == 0 %> 
+					  	<li>You used <%=h @shout.profanity_num %></span> words that might offend.</li>
+					  	<% end %>
+						</div>
+						<div class="grid_1 omega">
+							<div class="score">
+								<%=h @shout.reach_score %>
+							</div>
+						</div>
+						<div class="clear"></div>
+						<div class="sep"></div>
 					</div>
 				<div class="grid_5 prefix_1 alpha">
 				<img src="/img/totalscore_text.png" alt="TOTAL SCORE" style="margin-top: 30px;">

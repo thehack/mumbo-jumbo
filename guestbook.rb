@@ -18,6 +18,9 @@ class Shout
   property :jargon_num, Integer
   property :profanity_num, Integer
   property :famous, Boolean
+  property :letters_per_word, Integer
+  property :words_per_sentence, Integer
+  property :superlatives, Integer
 end
 
 # Make sure our template can use <%=h
@@ -80,7 +83,7 @@ profanity.flatten!
 
   selfish_words = %w[me myself i mine my]
   selfish = words - (words - %w[me myself i mine my])
-  superlatives = (((words - ( words - %w[super best better most very really amazing awesome worst hate love nobody everybody always never honestly])).length)*2)/wordnum
+  superlatives = (((words - ( words - %w[always amazing awesome best better crazy everybody hate honestly love most never nobody really super top-rated utmost utter very worst])).length))
 	#clarity is determined by letters per word 
   clarity_metric = {3 => 12, 4 => 19, 5 => 25, 6 => 20, 7 =>15, 8 =>10}
   #brevity is determined by words per sentance.
@@ -88,7 +91,7 @@ profanity.flatten!
 	lpw = (letters/wordnum).round
 	wps = (wordnum/sentences).round
 	r_score = 25 - (25*(profanity.length + selfish.length + jargon.length)/wordnum)
-	a_score = 25 - superlatives*5/wordnum
+	a_score = 25 - (superlatives*15/wordnum).round
 	c_score = if lpw <= 2 || lpw >= 9
     		0
     	else 
@@ -105,9 +108,12 @@ profanity.flatten!
 		:jargon_num => jargon.length,
 		:profanity_num => profanity.length,
     :accuracy_score => a_score,
+    :superlatives => superlatives,
     :reach_score => r_score ,
     :clarity_score => c_score,
+    :letters_per_word => lpw,
     :brevity_score => b_score,
+    :words_per_sentence => wps,
     :total_score => a_score + b_score + c_score + r_score
     )
 redirect '/'+shout.id.to_s+'/show'

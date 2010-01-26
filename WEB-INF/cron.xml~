@@ -2,7 +2,7 @@
 <cronentries>
   <cron>
     <url>/</url>
-    <description>Refresh the page to keep the server running every one min</description>
+    <description>Refresh the page to keep the server running every ten mins</description>
     <schedule>every 1 minutes</schedule>
   </cron>
 </cronentries>
