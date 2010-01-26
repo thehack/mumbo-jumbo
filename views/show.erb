@@ -155,10 +155,6 @@ color: #09a7e2;
 				<li>
 					<a href='/<%=h shout.id %>/show'><%=h shout.jumbo_name %>
 					</a>
-					<a href='/shouts/<%=h shout.id %>/delete' onclick="if (confirm('Are you sure?')) 
-		{ var f = document.createElement('form'); f.style.display = 'none'; 
-		this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;f.submit(); };return false;"> x 
-					</a>
 				</li>
 			<% end %>
 			</ul>
